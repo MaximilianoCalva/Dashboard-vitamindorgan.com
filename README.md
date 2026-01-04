@@ -5,7 +5,7 @@
 **Nombre Completo:** VitaMindOrgan - Psique, Cerebro & Órgano  
 **Acrónimo:** VMO  
 **Sitio Web Principal:** https://vitamindorgan.com  
-**Sitio Distribuidores:** https://distribuidores.vitamindorgan.com  
+**Sitio Distribuidores:** https://distribuidores.vitamindorgan.com/user  
 
 ## SEO y Metadata
 
@@ -31,14 +31,14 @@ Se han generado dos versiones de headers optimizados para **Botones Directos** (
 #### **Logged In (Usuario Autenticado)**
 - **Archivo:** `Header/header-logged-in-vitamindorgan.html`
 - **Botones:**
-    - **Dashboard:** https://distribuidores.vitamindorgan.com/
+    - **Dashboard:** https://distribuidores.vitamindorgan.com/user
     - **Ayuda:** WhatsApp (+52 33 1022 6993)
     - **Salir:** Logout de WordPress
 
 #### **Logged Out (Usuario No Autenticado)**
 - **Archivo:** `Header/header-logged-out-vitamindorgan.html`
 - **Botones:**
-    - **Acceso a Distribuidores:** https://distribuidores.vitamindorgan.com/
+    - **Acceso a Distribuidores:** https://distribuidores.vitamindorgan.com/user
 
 ### Comportamiento Responsive
 Los headers de Dashboard **NO** utilizan menú hamburguesa. En pantallas móviles (<768px), los textos se ocultan y se muestran solo iconos (o texto abreviado "Acceder") para mantener la funcionalidad en una sola línea.

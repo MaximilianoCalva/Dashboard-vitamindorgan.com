@@ -1,0 +1,98 @@
+<style>
+    .vmo-login-welcome {
+        background: #FFFFFF;
+        border-radius: 16px;
+        box-shadow: 0 8px 32px rgba(112, 182, 44, 0.15);
+        max-width: 500px;
+        width: 100%;
+        text-align: center;
+        padding: 50px 30px;
+        margin: 0 auto;
+    }
+
+    .vmo-login-welcome .welcome-icon {
+        width: 100px;
+        height: 100px;
+        margin: 0 auto 32px;
+        background: linear-gradient(135deg, #70B62C 0%, #5a9622 100%);
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .vmo-login-welcome .welcome-icon svg {
+        width: 50px;
+        height: 50px;
+        stroke: #FFFFFF;
+        fill: none;
+        stroke-width: 2;
+        stroke-linecap: round;
+        stroke-linejoin: round;
+    }
+
+    .vmo-login-welcome h1 {
+        font-size: 32px;
+        font-weight: 700;
+        color: #70B62C;
+        margin-bottom: 16px;
+    }
+
+    .vmo-login-welcome p {
+        font-size: 18px;
+        color: #6b7280;
+        margin-bottom: 40px;
+        line-height: 1.6;
+    }
+
+    .vmo-login-welcome .btn-dashboard {
+        display: inline-block;
+        background: linear-gradient(135deg, #70B62C 0%, #5a9622 100%);
+        color: #FFFFFF;
+        padding: 16px 48px;
+        border-radius: 50px;
+        text-decoration: none;
+        font-weight: 600;
+        font-size: 16px;
+        transition: all 0.3s ease;
+        box-shadow: 0 4px 12px rgba(112, 182, 44, 0.2);
+    }
+
+    .vmo-login-welcome .btn-dashboard:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 6px 16px rgba(112, 182, 44, 0.3);
+    }
+
+    @media (max-width: 480px) {
+        .vmo-login-welcome {
+            padding: 40px 20px;
+        }
+
+        .vmo-login-welcome h1 {
+            font-size: 28px;
+        }
+
+        .vmo-login-welcome p {
+            font-size: 16px;
+        }
+
+        .vmo-login-welcome .btn-dashboard {
+            padding: 14px 40px;
+            font-size: 15px;
+        }
+    }
+</style>
+
+<div class="vmo-login-welcome">
+    <div class="welcome-icon">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+            stroke-linejoin="round">
+            <path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"></path>
+            <line x1="3" y1="6" x2="21" y2="6"></line>
+            <path d="M16 10a4 4 0 0 1-8 0"></path>
+        </svg>
+    </div>
+    <h1>¡Bienvenido Distribuidor!</h1>
+    <p>Tu panel de control está listo. Gestiona tus pedidos y accede a recursos exclusivos.</p>
+    <a href="https://distribuidores.vitamindorgan.com/user" class="btn-dashboard">Ir a mi Panel</a>
+</div>

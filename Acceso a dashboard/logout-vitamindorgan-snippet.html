@@ -1,0 +1,202 @@
+<style>
+    .vmo-logout-form {
+        background: #FFFFFF;
+        border-radius: 16px;
+        box-shadow: 0 8px 32px rgba(112, 182, 44, 0.15);
+        max-width: 450px;
+        width: 100%;
+        overflow: hidden;
+        margin: 0 auto;
+    }
+
+    .vmo-logout-form .login-header {
+        background: linear-gradient(135deg, #70B62C 0%, #5a9622 100%);
+        padding: 40px 30px;
+        text-align: center;
+        color: #FFFFFF;
+    }
+
+    .vmo-logout-form .login-header h1 {
+        font-size: 28px;
+        font-weight: 700;
+        margin-bottom: 8px;
+        color: #FFFFFF;
+    }
+
+    .vmo-logout-form .login-header .header-icon {
+        width: 60px;
+        height: 60px;
+        margin: 0 auto 16px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .vmo-logout-form .login-header .header-icon svg {
+        width: 40px;
+        height: 40px;
+        stroke: #FFFFFF;
+        fill: none;
+        stroke-width: 2;
+        stroke-linecap: round;
+        stroke-linejoin: round;
+    }
+
+    .vmo-logout-form .login-header p {
+        font-size: 14px;
+        opacity: 0.9;
+        color: #FFFFFF;
+        font-weight: 500;
+    }
+
+    /* Tabs Navigation */
+    .tabs-navigation {
+        display: flex;
+        border-bottom: 2px solid #e5e7eb;
+        background: #f9fafb;
+    }
+
+    .tab-button {
+        flex: 1;
+        padding: 16px 20px;
+        background: transparent;
+        border: none;
+        font-size: 15px;
+        font-weight: 600;
+        color: #6b7280;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        position: relative;
+    }
+
+    .tab-button:hover {
+        color: #70B62C;
+        background: #f3f4f6;
+    }
+
+    .tab-button.active {
+        color: #70B62C;
+        background: #FFFFFF;
+    }
+
+    .tab-button.active::after {
+        content: '';
+        position: absolute;
+        bottom: -2px;
+        left: 0;
+        right: 0;
+        height: 3px;
+        background: linear-gradient(135deg, #70B62C 0%, #5a9622 100%);
+    }
+
+    /* Tab Content */
+    .tab-content {
+        display: none;
+        padding: 40px 30px;
+        animation: fadeIn 0.3s ease;
+    }
+
+    .tab-content.active {
+        display: block;
+    }
+
+    @keyframes fadeIn {
+        from {
+            opacity: 0;
+            transform: translateY(10px);
+        }
+
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+
+    .vmo-logout-form .login-instructions {
+        text-align: center;
+        color: #6b7280;
+        margin-bottom: 24px;
+        font-size: 15px;
+    }
+
+    @media (max-width: 480px) {
+        .vmo-logout-form {
+            border-radius: 12px;
+        }
+
+        .vmo-logout-form .login-header {
+            padding: 30px 20px;
+        }
+
+        .vmo-logout-form .login-header h1 {
+            font-size: 24px;
+        }
+
+        .tab-content {
+            padding: 30px 20px;
+        }
+    }
+</style>
+
+<div class="vmo-logout-form">
+
+    <div class="login-header">
+        <div class="header-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                stroke-linejoin="round">
+                <path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"></path>
+                <line x1="3" y1="6" x2="21" y2="6"></line>
+                <path d="M16 10a4 4 0 0 1-8 0"></path>
+            </svg>
+        </div>
+        <h1>VITAMINDORGAN</h1>
+        <p>Panel Exclusivo para Distribuidores</p>
+    </div>
+
+    <!-- Tabs Navigation -->
+    <div class="tabs-navigation">
+        <button class="tab-button active" onclick="switchTab('login')">
+            Iniciar Sesión
+        </button>
+        <button class="tab-button" onclick="switchTab('register')">
+            Registrarse
+        </button>
+    </div>
+
+    <!-- Tab Content: Login -->
+    <div id="login-tab" class="tab-content active">
+        <p class="login-instructions">
+            Ingresa tu correo y contraseña para acceder
+        </p>
+        [ultimatemember form_id="850"]
+    </div>
+
+    <!-- Tab Content: Register -->
+    <div id="register-tab" class="tab-content">
+        <p class="login-instructions">
+            Completa el formulario para registrarte como distribuidor
+        </p>
+        [ultimatemember form_id="849"]
+    </div>
+</div>
+
+<script>
+    function switchTab(tabName) {
+        // Ocultar todos los tabs
+        const allTabs = document.querySelectorAll('.tab-content');
+        allTabs.forEach(tab => tab.classList.remove('active'));
+
+        // Desactivar todos los botones
+        const allButtons = document.querySelectorAll('.tab-button');
+        allButtons.forEach(button => button.classList.remove('active'));
+
+        // Activar el tab seleccionado
+        if (tabName === 'login') {
+            document.getElementById('login-tab').classList.add('active');
+            document.querySelectorAll('.tab-button')[0].classList.add('active');
+        } else if (tabName === 'register') {
+            document.getElementById('register-tab').classList.add('active');
+            document.querySelectorAll('.tab-button')[1].classList.add('active');
+        }
+    }
+</script>
