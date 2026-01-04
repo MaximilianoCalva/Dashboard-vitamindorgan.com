@@ -1,0 +1,182 @@
+<!-- HEADER VITAMINDORGAN - LOGGED OUT (Usuario no autenticado) -->
+<div class="vmo-header-logged-out">
+    <div class="header-container">
+        <a href="https://vitamindorgan.com/" class="header-brand">
+            <span class="brand-text">VitaminDOrgan</span>
+            <span class="brand-subtitle">Distribuidores</span>
+        </a>
+
+
+
+        <!-- Botón directo (Sin menú hamburguesa) -->
+        <div class="header-actions">
+            <a href="https://distribuidores.vitamindorgan.com/" class="btn-login" title="Acceso a Distribuidores">
+                <svg class="icon" viewBox="0 0 24 24">
+                    <path d="M15 3h4a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2h-4M10 17l5-5-5-5M13.8 12H3" />
+                </svg>
+                <span class="btn-text">Acceso a Distribuidores</span>
+            </a>
+        </div>
+    </div>
+</div>
+
+<style>
+    /* Variables de colores VitaminDOrgan */
+    .vmo-header-logged-out {
+        --vmo-primary: #70B62C;
+        --vmo-hover: #5a9622;
+        --vmo-white: #FFFFFF;
+        --vmo-light-gray: #F5F5F5;
+    }
+
+    /* Reset básico */
+    .vmo-header-logged-out * {
+        box-sizing: border-box;
+    }
+
+    /* Contenedor principal */
+    .vmo-header-logged-out {
+        width: 100%;
+        background: var(--vmo-white);
+        border-bottom: 1px solid #e8eeff;
+        box-shadow: 0 2px 8px rgba(112, 182, 44, 0.1);
+        font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+        padding: 8px 15px;
+        position: relative;
+        z-index: 1000;
+    }
+
+    .vmo-header-logged-out .header-container {
+        width: 100%;
+        margin: 0 auto;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 15px;
+        min-height: 60px;
+    }
+
+    /* Branding */
+    .vmo-header-logged-out .header-brand {
+        display: flex;
+        flex-direction: column;
+        gap: 2px;
+        text-decoration: none;
+        cursor: pointer;
+        flex-shrink: 0;
+    }
+
+    .vmo-header-logged-out .brand-text {
+        font-size: 20px;
+        font-weight: 800;
+        letter-spacing: -0.5px;
+        color: var(--vmo-primary);
+    }
+
+    .vmo-header-logged-out .brand-subtitle {
+        font-size: 10px;
+        font-weight: 600;
+        color: #999;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+    }
+
+
+
+    /* Acciones */
+    .vmo-header-logged-out .header-actions {
+        display: flex;
+        align-items: center;
+    }
+
+    /* Botón de login */
+    .vmo-header-logged-out .btn-login {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        padding: 10px 20px;
+        background: var(--vmo-primary);
+        color: var(--vmo-white);
+        text-decoration: none;
+        border-radius: 50px;
+        font-size: 14px;
+        font-weight: 600;
+        transition: all 0.3s ease;
+        box-shadow: 0 4px 12px rgba(112, 182, 44, 0.2);
+        white-space: nowrap;
+    }
+
+    .vmo-header-logged-out .btn-login:hover {
+        background: var(--vmo-hover);
+        transform: translateY(-2px);
+        box-shadow: 0 6px 16px rgba(112, 182, 44, 0.3);
+    }
+
+    .vmo-header-logged-out .btn-login .icon {
+        width: 16px;
+        height: 16px;
+        fill: none;
+        stroke: currentColor;
+        stroke-width: 2;
+        stroke-linecap: round;
+        stroke-linejoin: round;
+    }
+
+    /* Responsive */
+    @media (max-width: 768px) {
+        .vmo-header-logged-out {
+            padding: 5px 10px;
+        }
+
+
+
+        .vmo-header-logged-out .header-container {
+            min-height: 50px;
+        }
+
+        .vmo-header-logged-out .brand-text {
+            font-size: 18px;
+        }
+
+        .vmo-header-logged-out .brand-subtitle {
+            display: none;
+        }
+
+        /* Optimización Móvil - Texto corto */
+        .vmo-header-logged-out .btn-text {
+            display: none;
+        }
+
+        .vmo-header-logged-out .btn-login::after {
+            content: "Acceder";
+            display: inline-block;
+        }
+
+        .vmo-header-logged-out .btn-login {
+            padding: 8px 16px;
+            font-size: 14px;
+        }
+    }
+
+    @media (max-width: 400px) {
+
+        /* Pantallas muy pequeñas: Solo icono */
+        .vmo-header-logged-out .btn-login::after {
+            display: none;
+        }
+
+        .vmo-header-logged-out .btn-login {
+            padding: 8px;
+            width: 36px;
+            height: 36px;
+            justify-content: center;
+            border-radius: 50%;
+        }
+
+        .vmo-header-logged-out .btn-login .icon {
+            margin: 0;
+            width: 18px;
+            height: 18px;
+        }
+    }
+</style>
