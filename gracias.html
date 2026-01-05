@@ -1,0 +1,395 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>¡Gracias! - VitaminDOrgan</title>
+    <style>
+        /* Variables Globales */
+        :root {
+            --vmo-primary: #70B62C;
+            --vmo-hover: #5a9622;
+            --vmo-white: #FFFFFF;
+            --vmo-light-gray: #F5F5F5;
+            --vmo-gradient: linear-gradient(135deg, #70B62C 0%, #5a9622 100%);
+            --font-main: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+
+            /* Footer Colors */
+            --vmo-green: #70B62C;
+            --vmo-dark: #1a2332;
+            --vmo-gray: #666666;
+        }
+
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: var(--font-main);
+            background-color: var(--vmo-light-gray);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        /* --- Header Styles (Logged Out - Dashboard) --- */
+        .vmo-header-logged-out {
+            width: 100%;
+            background: var(--vmo-white);
+            border-bottom: 1px solid #e8eeff;
+            box-shadow: 0 2px 8px rgba(112, 182, 44, 0.1);
+            padding: 8px 15px;
+            position: relative;
+            z-index: 1000;
+        }
+
+        .vmo-header-logged-out .header-container {
+            width: 100%;
+            margin: 0 auto;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 15px;
+            min-height: 60px;
+            max-width: 1200px;
+        }
+
+        .vmo-header-logged-out .header-brand {
+            display: flex;
+            flex-direction: column;
+            gap: 2px;
+            text-decoration: none;
+            cursor: pointer;
+            flex-shrink: 0;
+        }
+
+        .vmo-header-logged-out .brand-text {
+            font-size: 20px;
+            font-weight: 800;
+            letter-spacing: -0.5px;
+            color: var(--vmo-primary);
+        }
+
+        .vmo-header-logged-out .brand-subtitle {
+            font-size: 10px;
+            font-weight: 600;
+            color: #999;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        /* --- Main Content (Hero) --- */
+        .main-content {
+            flex: 1;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 40px 20px;
+        }
+
+        .thank-you-card {
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 10px 40px rgba(112, 182, 44, 0.1);
+            padding: 60px 40px;
+            max-width: 600px;
+            width: 100%;
+            text-align: center;
+            animation: fadeIn 0.8s ease-out;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .thank-you-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 6px;
+            background: var(--vmo-gradient);
+        }
+
+        .icon-container {
+            width: 100px;
+            height: 100px;
+            background: linear-gradient(135deg, #f0f9e8 0%, #dcedc8 100%);
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin: 0 auto 30px;
+            position: relative;
+        }
+
+        .icon-container::after {
+            content: '';
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            border-radius: 50%;
+            border: 2px solid #dcedc8;
+            animation: pulse 2s infinite;
+        }
+
+        .icon-check {
+            width: 50px;
+            height: 50px;
+            stroke: var(--vmo-primary);
+            stroke-width: 3;
+            fill: none;
+            stroke-linecap: round;
+            stroke-linejoin: round;
+            animation: drawCheck 0.6s 0.4s ease-out forwards;
+            stroke-dasharray: 100;
+            stroke-dashoffset: 100;
+        }
+
+        .title {
+            font-size: 32px;
+            color: var(--vmo-primary);
+            margin-bottom: 15px;
+            font-weight: 800;
+        }
+
+        .message {
+            font-size: 16px;
+            color: #555;
+            line-height: 1.6;
+            margin-bottom: 40px;
+        }
+
+        .btn-home {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            padding: 14px 35px;
+            background: var(--vmo-gradient);
+            color: white;
+            text-decoration: none;
+            border-radius: 50px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(112, 182, 44, 0.3);
+        }
+
+        .btn-home:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(112, 182, 44, 0.4);
+            filter: brightness(1.05);
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes pulse {
+            0% {
+                transform: scale(1);
+                opacity: 1;
+            }
+
+            100% {
+                transform: scale(1.2);
+                opacity: 0;
+            }
+        }
+
+        @keyframes drawCheck {
+            to {
+                stroke-dashoffset: 0;
+            }
+        }
+
+        /* --- Footer Styles (Adapted from Web Footer) --- */
+        .vmo-footer {
+            background: linear-gradient(135deg, #1a2332 0%, #2a3f5f 100%);
+            color: var(--vmo-white);
+            padding: 60px 20px 20px;
+        }
+
+        .footer-container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .footer-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 40px;
+            margin-bottom: 40px;
+        }
+
+        .footer-section h3 {
+            font-size: 18px;
+            font-weight: 700;
+            margin-bottom: 20px;
+            color: var(--vmo-green);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .footer-section p,
+        .footer-section a:not(.social-link) {
+            font-size: 14px;
+            line-height: 1.6;
+            color: rgba(255, 255, 255, 0.8);
+            margin-bottom: 12px;
+            text-decoration: none;
+            display: block;
+        }
+
+        .footer-section a:not(.social-link):hover {
+            color: var(--vmo-green);
+            transform: translateX(5px);
+            transition: all 0.3s ease;
+            display: inline-block;
+        }
+
+        .social-links {
+            display: flex;
+            gap: 15px;
+            margin-top: 15px;
+        }
+
+        .social-link {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.1);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--vmo-white);
+            text-decoration: none;
+            font-size: 18px;
+            transition: all 0.3s ease;
+        }
+
+        .social-link:hover {
+            background: var(--vmo-green);
+            transform: translateY(-3px);
+        }
+
+        .footer-bottom {
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            padding-top: 30px;
+            text-align: center;
+        }
+
+        .footer-brand-logo {
+            font-size: 24px;
+            font-weight: 700;
+            color: var(--vmo-white);
+            margin-bottom: 10px;
+        }
+
+        .footer-copyright p {
+            font-size: 13px;
+            color: rgba(255, 255, 255, 0.6);
+            margin: 5px 0;
+        }
+
+        /* Mobile adjustment */
+        @media (max-width: 768px) {
+            .thank-you-card {
+                padding: 40px 20px;
+            }
+
+            .vmo-header-logged-out .brand-subtitle {
+                display: none;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- HEADER -->
+    <div class="vmo-header-logged-out">
+        <div class="header-container">
+            <a href="https://vitamindorgan.com/" class="header-brand">
+                <span class="brand-text">VitaminDOrgan</span>
+                <span class="brand-subtitle">Distribuidores</span>
+            </a>
+            <!-- Botón opcional -->
+        </div>
+    </div>
+
+    <!-- MAIN CONTENT -->
+    <main class="main-content">
+        <div class="thank-you-card">
+            <div class="icon-container">
+                <svg class="icon-check" viewBox="0 0 24 24">
+                    <polyline points="20 6 9 17 4 12"></polyline>
+                </svg>
+            </div>
+            <h1 class="title">¡Gracias por registrarte!</h1>
+            <p class="message">
+                Hemos recibido tu información correctamente.<br>
+                Nos pondremos en contacto contigo lo antes posible.
+            </p>
+            <a href="https://vitamindorgan.com/" class="btn-home">Volver al Inicio</a>
+        </div>
+    </main>
+
+    <!-- FOOTER -->
+    <footer class="vmo-footer">
+        <div class="footer-container">
+            <div class="footer-grid">
+                <!-- Sobre Nosotros -->
+                <div class="footer-section">
+                    <h3>Sobre VitaMindOrgan</h3>
+                    <p>
+                        Especialistas en suplementos naturales para la salud integral:
+                        Psique, Cerebro & Órgano. Productos 100% naturales.
+                    </p>
+                </div>
+
+                <!-- Enlaces Rápidos -->
+                <div class="footer-section">
+                    <h3>Enlaces Rápidos</h3>
+                    <a href="https://vitamindorgan.com/">Inicio</a>
+                    <a href="https://vitamindorgan.com/catalogo/">Catálogo</a>
+                    <a href="https://vitamindorgan.com/contacto/">Contacto</a>
+                </div>
+
+                <!-- Contacto -->
+                <div class="footer-section">
+                    <h3>Contacto</h3>
+                    <a href="mailto:contacto@vitamindorgan.com">📧 contacto@vitamindorgan.com</a>
+                    <a href="https://wa.me/5213334054655" target="_blank">💬 WhatsApp: +52 1 33 3405 4655</a>
+                </div>
+
+                <!-- Redes Sociales -->
+                <div class="footer-section">
+                    <h3>Síguenos</h3>
+                    <div class="social-links">
+                        <a href="https://facebook.com/100774609106432" class="social-link" target="_blank">📘</a>
+                        <a href="https://instagram.com/vitamindorgan" class="social-link" target="_blank">📷</a>
+                        <a href="https://www.tiktok.com/@vitamindorgan" class="social-link" target="_blank">🎵</a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="footer-bottom">
+                <div class="footer-brand-logo">VitaMindOrgan</div>
+                <div class="footer-copyright">
+                    <p>© 2024-2026 VitaMindOrgan. Todos los derechos reservados.</p>
+                    <p>Psique, Cerebro & Órgano</p>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+</body>
+
+</html>
