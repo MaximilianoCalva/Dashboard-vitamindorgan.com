@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Canal WhatsApp Distribuidores</title>
+    <style>
+        :root {
+            --vitamind-primary: #00A859;
+            --vitamind-dark: #008045;
+            --whatsapp-green: #25D366;
+            --text-dark: #2C3E50;
+        }
+
+        .whatsapp-invitation {
+            background: linear-gradient(135deg, #00A859 0%, #008045 100%);
+            border-radius: 12px;
+            box-shadow: 0 4px 15px rgba(0, 168, 89, 0.3);
+            padding: 25px;
+            color: white;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .whatsapp-invitation::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            right: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(255, 255, 255, 0.1) 0%, transparent 70%);
+            animation: pulse 3s ease-in-out infinite;
+        }
+
+        @keyframes pulse {
+
+            0%,
+            100% {
+                transform: scale(1);
+                opacity: 0.5;
+            }
+
+            50% {
+                transform: scale(1.1);
+                opacity: 0.8;
+            }
+        }
+
+        .invitation-content {
+            position: relative;
+            z-index: 1;
+        }
+
+        .whatsapp-icon {
+            font-size: 3.5rem;
+            margin-bottom: 15px;
+            animation: bounce 2s ease-in-out infinite;
+        }
+
+        @keyframes bounce {
+
+            0%,
+            100% {
+                transform: translateY(0);
+            }
+
+            50% {
+                transform: translateY(-10px);
+            }
+        }
+
+        .invitation-title {
+            font-size: 1.4rem;
+            font-weight: 700;
+            margin-bottom: 10px;
+            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+        }
+
+        .invitation-text {
+            font-size: 0.95rem;
+            line-height: 1.6;
+            margin-bottom: 20px;
+            opacity: 0.95;
+        }
+
+        .whatsapp-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            background: var(--whatsapp-green);
+            color: white;
+            padding: 14px 28px;
+            border-radius: 30px;
+            text-decoration: none;
+            font-weight: 700;
+            font-size: 1.05rem;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 12px rgba(37, 211, 102, 0.4);
+        }
+
+        .whatsapp-btn:hover {
+            background: #20BA5A;
+            transform: translateY(-2px);
+            box-shadow: 0 6px 16px rgba(37, 211, 102, 0.5);
+        }
+
+        .benefits-list {
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 10px;
+            padding: 20px;
+            margin-top: 20px;
+            text-align: left;
+        }
+
+        .benefits-list h4 {
+            margin: 0 0 15px 0;
+            font-size: 1.1rem;
+            text-align: center;
+        }
+
+        .benefit-item {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 10px;
+            font-size: 0.9rem;
+        }
+
+        .benefit-item:last-child {
+            margin-bottom: 0;
+        }
+
+        .benefit-icon {
+            font-size: 1.2rem;
+        }
+
+        @media (max-width: 768px) {
+            .whatsapp-invitation {
+                padding: 20px;
+            }
+
+            .invitation-title {
+                font-size: 1.2rem;
+            }
+
+            .whatsapp-btn {
+                padding: 12px 24px;
+                font-size: 1rem;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="whatsapp-invitation">
+        <div class="invitation-content">
+            <div class="whatsapp-icon">💚</div>
+
+            <h3 class="invitation-title">¡Únete a Nuestro Canal Exclusivo!</h3>
+
+            <p class="invitation-text">
+                Mantente al día con las últimas novedades, promociones especiales y contenido exclusivo para
+                distribuidores VitamindOrgan.
+            </p>
+
+            <a href="https://whatsapp.com/channel/0029VbBsBG59WtBug4RDga2v" target="_blank" class="whatsapp-btn">
+                <svg viewBox="0 0 24 24" width="24" height="24" fill="currentColor">
+                    <path
+                        d="M12.031 6.172c-3.181 0-5.767 2.586-5.768 5.766-.001 1.298.38 2.27 1.019 3.287l-.711 2.592 2.654-.698c1.005.572 1.913.846 2.803.846h.001c3.181 0 5.768-2.586 5.768-5.766-.001-3.18-2.587-5.767-5.766-5.767zm3.392 8.244c-.144.405-.837.774-1.17.824-.299.045-.677.072-1.092-.069-.252-.086-.575-.199-.988-.386-1.739-.786-2.874-2.576-2.961-2.693-.087-.117-.708-.94-.708-1.793s.448-1.273.607-1.446c.159-.173.346-.217.462-.217l.332.006c.106.005.249-.04.39.298.144.347.491 1.2.534 1.287.043.087.072.188.014.304-.058.116-.087.188-.173.289l-.26.304c-.087.086-.177.18-.076.354.101.174.449.741.964 1.201.662.591 1.221.775 1.394.862s.274.072.376-.043c.101-.116.433-.506.549-.68.116-.173.231-.145.39-.087s1.011.477 1.184.564.289.13.332.202c.045.072.045.419-.1.824z" />
+                </svg>
+                Unirme al Canal
+            </a>
+
+            <div class="benefits-list">
+                <h4>✨ Beneficios Exclusivos:</h4>
+                <div class="benefit-item">
+                    <span class="benefit-icon">🎁</span>
+                    <span>Promociones y descuentos especiales</span>
+                </div>
+                <div class="benefit-item">
+                    <span class="benefit-icon">📢</span>
+                    <span>Lanzamientos de nuevos productos</span>
+                </div>
+                <div class="benefit-item">
+                    <span class="benefit-icon">📊</span>
+                    <span>Tips de ventas y marketing</span>
+                </div>
+                <div class="benefit-item">
+                    <span class="benefit-icon">🤝</span>
+                    <span>Soporte prioritario</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</body>
+
+</html>

@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Catálogo Distribuidores</title>
+    <style>
+        :root {
+            --vitamind-primary: #00A859;
+            --vitamind-dark: #008045;
+            --vitamind-light: #E8F5E9;
+            --text-dark: #2C3E50;
+        }
+
+        .catalog-section {
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+            padding: 30px;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        .catalog-header {
+            margin-bottom: 30px;
+            border-bottom: 3px solid var(--vitamind-light);
+            padding-bottom: 15px;
+        }
+
+        .catalog-header h2 {
+            color: var(--vitamind-primary);
+            font-size: 1.8rem;
+            margin: 0 0 10px 0;
+            font-weight: 700;
+        }
+
+        .catalog-header p {
+            color: #666;
+            margin: 0;
+            font-size: 0.95rem;
+        }
+
+        .products-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 20px;
+            margin-top: 20px;
+        }
+
+        .product-card {
+            background: #fff;
+            border: 1px solid #E0E0E0;
+            border-radius: 10px;
+            padding: 20px;
+            text-align: center;
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+
+        .product-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 20px rgba(0, 168, 89, 0.15);
+            border-color: var(--vitamind-primary);
+        }
+
+        .product-image {
+            width: 100%;
+            height: 200px;
+            object-fit: contain;
+            margin-bottom: 15px;
+            border-radius: 8px;
+        }
+
+        .product-name {
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: var(--text-dark);
+            margin-bottom: 10px;
+            min-height: 50px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .product-price {
+            font-size: 1.5rem;
+            color: var(--vitamind-primary);
+            font-weight: 700;
+            margin-bottom: 15px;
+        }
+
+        .product-btn {
+            display: inline-block;
+            background: var(--vitamind-primary);
+            color: white;
+            padding: 10px 20px;
+            border-radius: 25px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            border: none;
+            cursor: pointer;
+            width: 100%;
+        }
+
+        .product-btn:hover {
+            background: var(--vitamind-dark);
+            transform: scale(1.05);
+        }
+
+        .category-filter {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+            margin-bottom: 25px;
+        }
+
+        .filter-btn {
+            padding: 8px 16px;
+            background: #f5f5f5;
+            border: 1px solid #ddd;
+            border-radius: 20px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-size: 0.9rem;
+        }
+
+        .filter-btn:hover,
+        .filter-btn.active {
+            background: var(--vitamind-primary);
+            color: white;
+            border-color: var(--vitamind-primary);
+        }
+
+        @media (max-width: 768px) {
+            .products-grid {
+                grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+                gap: 15px;
+            }
+
+            .catalog-section {
+                padding: 20px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="catalog-section">
+        <div class="catalog-header">
+            <h2>🛒 Catálogo de Productos para Distribuidores</h2>
+            <p>Precios especiales para distribuidores. Todos los productos disponibles para pedido.</p>
+        </div>
+
+        <div class="category-filter">
+            <button class="filter-btn active">Todos</button>
+            <button class="filter-btn">Vita</button>
+            <button class="filter-btn">Derma</button>
+            <button class="filter-btn">Dtox</button>
+            <button class="filter-btn">PCO</button>
+        </div>
+
+        <!-- 
+            INSTRUCCIÓN: 
+            Aquí puedes insertar el shortcode de WooCommerce para mostrar productos
+            Ejemplo: [products limit="12" columns="4" category="distribuidores"]
+            
+            O puedes usar el shortcode personalizado si tienes uno configurado
+        -->
+
+        <div class="products-grid">
+            <!-- Placeholder: Los productos se cargarán desde WooCommerce -->
+            <div style="grid-column: 1/-1; text-align: center; padding: 40px; color: #999;">
+                <p style="font-size: 1.1rem;">
+                    📦 Inserta aquí tu shortcode de WooCommerce para mostrar los productos<br>
+                    <code
+                        style="background: #f5f5f5; padding: 5px 10px; border-radius: 5px; display: inline-block; margin-top: 10px;">
+                        [products limit="12" columns="4"]
+                    </code>
+                </p>
+            </div>
+        </div>
+    </div>
+
+</body>
+
+</html>

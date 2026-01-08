@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Menú Dashboard</title>
+    <style>
+        :root {
+            --vitamind-primary: #00A859;
+            --vitamind-dark: #008045;
+            --vitamind-light: #E8F5E9;
+            --text-dark: #2C3E50;
+            --border-color: #E0E0E0;
+        }
+
+        .dashboard-menu {
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+            padding: 20px 0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        .menu-header {
+            padding: 0 20px 15px;
+            border-bottom: 2px solid var(--vitamind-light);
+            margin-bottom: 10px;
+        }
+
+        .menu-header h3 {
+            color: var(--vitamind-primary);
+            font-size: 1.2rem;
+            margin: 0;
+            font-weight: 700;
+        }
+
+        .menu-list {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .menu-item {
+            margin: 0;
+        }
+
+        .menu-link {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 12px 20px;
+            color: var(--text-dark);
+            text-decoration: none;
+            transition: all 0.3s ease;
+            border-left: 3px solid transparent;
+        }
+
+        .menu-link:hover {
+            background: var(--vitamind-light);
+            border-left-color: var(--vitamind-primary);
+            color: var(--vitamind-dark);
+        }
+
+        .menu-link.active {
+            background: var(--vitamind-light);
+            border-left-color: var(--vitamind-primary);
+            color: var(--vitamind-primary);
+            font-weight: 600;
+        }
+
+        .menu-icon {
+            font-size: 1.3rem;
+            width: 24px;
+            text-align: center;
+        }
+
+        .menu-divider {
+            height: 1px;
+            background: var(--border-color);
+            margin: 10px 20px;
+        }
+
+        @media (max-width: 768px) {
+            .dashboard-menu {
+                border-radius: 8px;
+                padding: 15px 0;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <nav class="dashboard-menu">
+        <div class="menu-header">
+            <h3>📊 Menú Dashboard</h3>
+        </div>
+
+        <ul class="menu-list">
+            <li class="menu-item">
+                <a href="https://distribuidores.vitamindorgan.com/mi-cuenta/" class="menu-link active">
+                    <span class="menu-icon">🏠</span>
+                    <span>Inicio</span>
+                </a>
+            </li>
+
+            <li class="menu-item">
+                <a href="https://distribuidores.vitamindorgan.com/tienda/" class="menu-link">
+                    <span class="menu-icon">🛒</span>
+                    <span>Catálogo de Productos</span>
+                </a>
+            </li>
+
+            <li class="menu-item">
+                <a href="https://distribuidores.vitamindorgan.com/mi-cuenta/orders/" class="menu-link">
+                    <span class="menu-icon">📦</span>
+                    <span>Mis Pedidos</span>
+                </a>
+            </li>
+
+            <li class="menu-item">
+                <a href="https://distribuidores.vitamindorgan.com/carrito/" class="menu-link">
+                    <span class="menu-icon">🛍️</span>
+                    <span>Mi Carrito</span>
+                </a>
+            </li>
+
+            <div class="menu-divider"></div>
+
+            <li class="menu-item">
+                <a href="https://distribuidores.vitamindorgan.com/mi-cuenta/edit-account/" class="menu-link">
+                    <span class="menu-icon">⚙️</span>
+                    <span>Mi Cuenta</span>
+                </a>
+            </li>
+
+            <li class="menu-item">
+                <a href="https://wa.me/5213329243805" target="_blank" class="menu-link">
+                    <span class="menu-icon">💬</span>
+                    <span>Soporte WhatsApp</span>
+                </a>
+            </li>
+
+            <div class="menu-divider"></div>
+
+            <li class="menu-item">
+                <a href="https://distribuidores.vitamindorgan.com/mi-cuenta/customer-logout/" class="menu-link">
+                    <span class="menu-icon">🚪</span>
+                    <span>Cerrar Sesión</span>
+                </a>
+            </li>
+        </ul>
+    </nav>
+
+</body>
+
+</html>
