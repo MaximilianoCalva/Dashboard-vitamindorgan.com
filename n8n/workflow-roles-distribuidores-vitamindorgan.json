@@ -1,0 +1,356 @@
+{
+    "nodes": [
+        {
+            "parameters": {
+                "documentId": {
+                    "__rl": true,
+                    "value": "1qDVArHQMy5gku9RVP1iIjmYU5Ulu6pSxBrkOuU-LJDc",
+                    "mode": "list",
+                    "cachedResultName": "Vitamindorgan - Distribuidores (activos/inactivos)",
+                    "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1qDVArHQMy5gku9RVP1iIjmYU5Ulu6pSxBrkOuU-LJDc/edit?usp=drivesdk"
+                },
+                "sheetName": {
+                    "__rl": true,
+                    "value": "gid=0",
+                    "mode": "list",
+                    "cachedResultName": "distribuidores.vitamindorgan.com",
+                    "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1qDVArHQMy5gku9RVP1iIjmYU5Ulu6pSxBrkOuU-LJDc/edit#gid=0"
+                },
+                "options": {}
+            },
+            "name": "Read Student Status",
+            "type": "n8n-nodes-base.googleSheets",
+            "typeVersion": 3,
+            "position": [
+                -816,
+                -112
+            ],
+            "id": "63a11391-ea76-4b39-a5d3-93afa381a263",
+            "credentials": {
+                "googleSheetsOAuth2Api": {
+                    "id": "LPf4qZBpPvUSzo8f",
+                    "name": "diseno4.impulsomarketing@gmail.com"
+                }
+            }
+        },
+        {
+            "parameters": {
+                "jsCode": "const users = {};\nconst items = $input.all();\n\n// Helper to find key fuzzily\nfunction findKey(obj, target) {\n  if (!obj) return null;\n  const keys = Object.keys(obj);\n  return keys.find(k => k.trim().toLowerCase() === target.toLowerCase());\n}\n\nfor (const item of items) {\n  // Find robust keys\n  const mailKey = findKey(item.json, 'Correo') || findKey(item.json, 'Email');\n  const statusKey = findKey(item.json, 'Status') || findKey(item.json, 'Estatus');\n  const roleKey = findKey(item.json, 'Rol') || findKey(item.json, 'Role');\n\n  if (!mailKey) continue; // No email column? Skip.\n\n  const email = (item.json[mailKey] || '').toString().trim().toLowerCase();\n  if (!email) continue;\n\n  if (!users[email]) {\n    users[email] = {\n      json: {\n        ...item.json,\n        activeRoles: [],\n        inactiveRoles: []\n      }\n    };\n  }\n\n  // Handle keys\n  const statusRaw = statusKey ? (item.json[statusKey] || '').toString().toLowerCase() : '';\n  const roleVal = roleKey ? (item.json[roleKey] || '') : '';\n  \n  const roles = roleVal.toString().split(',').map(r => r.trim()).filter(r => r.length > 0);\n\n  // Check for 'activo' or 'active'\n  if (statusRaw.includes('activo') || statusRaw === 'active') {\n    users[email].json.activeRoles.push(...roles);\n  } else {\n    // Assume anything else with roles implies inactive or just inactive status\n    // But strictly, we only care if status explicitly says 'inactivo' or is handled as else case in original logic.\n    // Original logic: if (status === 'activo') ... else ...\n    // So we keep that behavior for compatibility:\n    users[email].json.inactiveRoles.push(...roles);\n  }\n}\n\n// Result array\nconst result = [];\nfor (const email in users) {\n  const u = users[email];\n  // Unique\n  u.json.activeRoles = [...new Set(u.json.activeRoles)];\n  u.json.inactiveRoles = [...new Set(u.json.inactiveRoles)];\n  \n  // Conflict resolution: Active wins.\n  u.json.inactiveRoles = u.json.inactiveRoles.filter(r => !u.json.activeRoles.includes(r));\n  \n  result.push(u);\n}\nreturn result;"
+            },
+            "name": "Group Data",
+            "type": "n8n-nodes-base.code",
+            "typeVersion": 1,
+            "position": [
+                -608,
+                -112
+            ],
+            "id": "9e0bf624-80ed-417f-98f7-df942080f257"
+        },
+        {
+            "parameters": {
+                "batchSize": 1,
+                "options": {}
+            },
+            "type": "n8n-nodes-base.splitInBatches",
+            "typeVersion": 1,
+            "position": [
+                -400,
+                -112
+            ],
+            "id": "66b97f7b-90aa-4f0d-9c87-b6f2e1a91354",
+            "name": "Loop Rows"
+        },
+        {
+            "parameters": {
+                "url": "https://distribuidores.vitamindorgan.com/wp-json/wp/v2/users",
+                "authentication": "predefinedCredentialType",
+                "nodeCredentialType": "wordpressApi",
+                "sendQuery": true,
+                "queryParameters": {
+                    "parameters": [
+                        {
+                            "name": "search",
+                            "value": "={{ ($('Loop Rows').item.json['Correo'] || '').toString().trim() }}"
+                        },
+                        {
+                            "name": "context",
+                            "value": "edit"
+                        }
+                    ]
+                },
+                "options": {}
+            },
+            "name": "Find User API",
+            "type": "n8n-nodes-base.httpRequest",
+            "typeVersion": 3,
+            "position": [
+                -208,
+                -112
+            ],
+            "id": "ade6fbda-fca8-4d41-94b8-10389128442b",
+            "alwaysOutputData": true,
+            "credentials": {
+                "wordpressApi": {
+                    "id": "kptrKUCVB9u1cmjf",
+                    "name": "https://distribuidores.vitamindorgan.com/"
+                }
+            }
+        },
+        {
+            "parameters": {
+                "jsCode": "const searchResults = $input.all();\nconst loopItem = $('Loop Rows').item;\nconst targetEmail = (loopItem.json['Correo'] || loopItem.json['Email'] || '').toString().trim().toLowerCase();\n\n// Normalize search results: valid users only\nconst potentialUsers = searchResults.map(i => i.json).filter(u => u && u.email);\n\n// Find exact match\nconst matchedUser = potentialUsers.find(u => u.email.toLowerCase() === targetEmail);\n\n// Return item with userFound flag\nreturn {\n  json: {\n    ...loopItem.json,\n    wpUser: matchedUser || null,\n    userFound: !!matchedUser\n  }\n};"
+            },
+            "name": "Filter Exact User",
+            "type": "n8n-nodes-base.code",
+            "typeVersion": 1,
+            "position": [
+                0,
+                -112
+            ],
+            "id": "d5ff0df9-95bd-4c1c-bd3a-048d0aacc4c0"
+        },
+        {
+            "parameters": {
+                "conditions": {
+                    "boolean": [
+                        {
+                            "value1": "={{ $json.userFound }}",
+                            "value2": true
+                        }
+                    ]
+                }
+            },
+            "name": "User Found?",
+            "type": "n8n-nodes-base.if",
+            "typeVersion": 1,
+            "position": [
+                192,
+                -112
+            ],
+            "id": "c9cbfe52-6fab-42bb-abc3-c0ff96e126c3"
+        },
+        {
+            "parameters": {
+                "url": "={{ \"https://distribuidores.vitamindorgan.com/wp-json/wp/v2/users/\" + $json.wpUser.id + \"?context=edit\" }}",
+                "authentication": "predefinedCredentialType",
+                "nodeCredentialType": "wordpressApi",
+                "options": {}
+            },
+            "name": "Get Current Roles",
+            "type": "n8n-nodes-base.httpRequest",
+            "typeVersion": 3,
+            "position": [
+                400,
+                -112
+            ],
+            "id": "29e37eb4-2098-4e0c-ba3b-7ed09f535a74",
+            "credentials": {
+                "wordpressApi": {
+                    "id": "kptrKUCVB9u1cmjf",
+                    "name": "https://distribuidores.vitamindorgan.com/"
+                }
+            }
+        },
+        {
+            "parameters": {
+                "jsCode": "const wpUser = $input.first().json;\nconst loopItem = $('Loop Rows').item.json;\nconst activeRoles = loopItem.activeRoles || [];\n\n// SOLUCIÓN DEFINITIVA: Sobrescribir completamente\n// Ignoramos roles actuales, asignamos solo lo que dice el Sheet\nconst finalRoles = [...activeRoles];\n\n// Fallback: si no hay roles en sheet, mantener al menos 'subscriber' si se desea, \n// pero la lógica es 'sobrescribir'. Si viene vacío, queda sin roles (o default WP).\n// Podríamos agregar 'subscriber' si finalRoles está vacío para evitar usuarios rotos.\nif (finalRoles.length === 0) {\n    finalRoles.push('subscriber');\n}\n\nreturn {\n  json: {\n    id: wpUser.id,\n    roles: finalRoles,\n    _debug: {\n        sheet_roles: activeRoles,\n        wp_previous: wpUser.roles || [],\n        wp_new: finalRoles\n    }\n  }\n};"
+            },
+            "name": "Calculate Roles",
+            "type": "n8n-nodes-base.code",
+            "typeVersion": 1,
+            "position": [
+                608,
+                -112
+            ],
+            "id": "0e5e5737-ae2f-46be-bfdb-a7c8017a7466"
+        },
+        {
+            "parameters": {
+                "method": "POST",
+                "url": "={{ \"https://distribuidores.vitamindorgan.com/wp-json/wp/v2/users/\" + $json.id }}",
+                "authentication": "predefinedCredentialType",
+                "nodeCredentialType": "wordpressApi",
+                "sendBody": true,
+                "specifyBody": "json",
+                "jsonBody": "={{ { \"roles\": $json.roles } }}",
+                "options": {}
+            },
+            "name": "Update User Roles",
+            "type": "n8n-nodes-base.httpRequest",
+            "typeVersion": 3,
+            "position": [
+                800,
+                -112
+            ],
+            "id": "a8a735b3-14c1-466b-a804-3713a9920a3b",
+            "alwaysOutputData": true,
+            "credentials": {
+                "wordpressApi": {
+                    "id": "kptrKUCVB9u1cmjf",
+                    "name": "https://distribuidores.vitamindorgan.com/"
+                }
+            },
+            "continueOnFail": true
+        },
+        {
+            "parameters": {
+                "amount": 2,
+                "unit": "seconds"
+            },
+            "name": "Wait for WP API",
+            "type": "n8n-nodes-base.wait",
+            "typeVersion": 1,
+            "position": [
+                1008,
+                -224
+            ],
+            "id": "0198ba89-ccd1-43d8-b124-8cf61443328b",
+            "webhookId": "d28306b1-4217-426f-82bc-77398c60efb4"
+        },
+        {
+            "parameters": {},
+            "type": "n8n-nodes-base.noOp",
+            "typeVersion": 1,
+            "position": [
+                1200,
+                -112
+            ],
+            "id": "4f680c4e-7ea7-4a54-97fa-34cc3f021b74",
+            "name": "Continue Loop"
+        }
+    ],
+    "connections": {
+        "Read Student Status": {
+            "main": [
+                [
+                    {
+                        "node": "Group Data",
+                        "type": "main",
+                        "index": 0
+                    }
+                ]
+            ]
+        },
+        "Group Data": {
+            "main": [
+                [
+                    {
+                        "node": "Loop Rows",
+                        "type": "main",
+                        "index": 0
+                    }
+                ]
+            ]
+        },
+        "Loop Rows": {
+            "main": [
+                [
+                    {
+                        "node": "Find User API",
+                        "type": "main",
+                        "index": 0
+                    }
+                ]
+            ]
+        },
+        "Find User API": {
+            "main": [
+                [
+                    {
+                        "node": "Filter Exact User",
+                        "type": "main",
+                        "index": 0
+                    }
+                ]
+            ]
+        },
+        "Filter Exact User": {
+            "main": [
+                [
+                    {
+                        "node": "User Found?",
+                        "type": "main",
+                        "index": 0
+                    }
+                ]
+            ]
+        },
+        "User Found?": {
+            "main": [
+                [
+                    {
+                        "node": "Get Current Roles",
+                        "type": "main",
+                        "index": 0
+                    }
+                ],
+                [
+                    {
+                        "node": "Continue Loop",
+                        "type": "main",
+                        "index": 0
+                    }
+                ]
+            ]
+        },
+        "Get Current Roles": {
+            "main": [
+                [
+                    {
+                        "node": "Calculate Roles",
+                        "type": "main",
+                        "index": 0
+                    }
+                ]
+            ]
+        },
+        "Calculate Roles": {
+            "main": [
+                [
+                    {
+                        "node": "Update User Roles",
+                        "type": "main",
+                        "index": 0
+                    }
+                ]
+            ]
+        },
+        "Update User Roles": {
+            "main": [
+                [
+                    {
+                        "node": "Wait for WP API",
+                        "type": "main",
+                        "index": 0
+                    }
+                ]
+            ]
+        },
+        "Wait for WP API": {
+            "main": [
+                [
+                    {
+                        "node": "Continue Loop",
+                        "type": "main",
+                        "index": 0
+                    }
+                ]
+            ]
+        },
+        "Continue Loop": {
+            "main": [
+                [
+                    {
+                        "node": "Loop Rows",
+                        "type": "main",
+                        "index": 0
+                    }
+                ]
+            ]
+        }
+    },
+    "pinData": {},
+    "meta": {
+        "instanceId": "3a54f9858961d6a8de3ba4e915ac8d0e4ae80bcd3db7f786bb8f5b77301d8dd3"
+    }
+}
